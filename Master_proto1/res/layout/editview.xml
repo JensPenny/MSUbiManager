@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:orientation="horizontal">
+  <LinearLayout
+  	android:id="@+id/cntTopUnusedBlocks"
+  	android:layout_width="fill_parent"
+  	android:layout_height="wrap_content"
+  >
+  
+  </LinearLayout>
+  
+  <LinearLayout
+  	android:id="@+id/cntMiddleRuleContainer"
+  	android:layout_width="fill_parent"
+  	android:layout_height="wrap_content"
+  >
+  </LinearLayout>
+  
+  <LinearLayout
+  	android:id="@+id/cntBottomRuleDescription"
+  	android:layout_width="fill_parent"
+  	android:layout_height="wrap_content"
+  >
+  </LinearLayout>
+  
+</LinearLayout>
