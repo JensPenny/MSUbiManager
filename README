@@ -1,0 +1,5 @@
+Master_proto1 contains the base for the first high - fidelity prototype of the application
+The test - folder contains the android unit tests
+
+I just uploaded all the files (also .eclipse and stuff), since I'm still figuring out .gitignore :D
+Projects were made in eclipse.
