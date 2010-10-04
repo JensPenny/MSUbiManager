@@ -16,7 +16,6 @@ public class BaseBlock {
     private final String klasse = this.getClass().getCanonicalName();
     private String statusKlasseNaam = "";
     private String locatie = null;
-    
     private String description = null;
 
     public String getName() {

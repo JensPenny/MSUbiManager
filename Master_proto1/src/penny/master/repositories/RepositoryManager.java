@@ -1,8 +1,5 @@
 package penny.master.repositories;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 public class RepositoryManager {
 	
 	private BlockRepository blockrepo = null;
