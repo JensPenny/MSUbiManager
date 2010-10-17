@@ -5,11 +5,13 @@
 
 package penny.master.blockbase;
 
+import java.util.UUID;
+
 /**
  *
  * @author jens
  */
-public class BaseBlock {
+public class BaseBlock implements Cloneable{
     private TYPE type = TYPE.NONE;
     private String name = "Basic block";
     private Object status = null; //Dit zou eigenlijk ALTIJD een enum moeten zijn, anders gaat json klagen :(
@@ -17,6 +19,7 @@ public class BaseBlock {
     private String statusKlasseNaam = "";
     private String locatie = null;
     private String description = null;
+    private UUID id = UUID.randomUUID();
 
     public String getName() {
         return name;
@@ -36,23 +39,18 @@ public class BaseBlock {
     public void setType(TYPE type) {
         this.type = type;
     }
-
     public boolean checkStatus(Object status){
         return (this.status.equals(status));
     }
-
     public String getLocatie() {
         return locatie;
     }
-
     public void setLocatie(String locatie) {
         this.locatie = locatie;
     }
-
     public String getKlasse() {
         return klasse;
     }
-
     //Erm...worden nu 'geset' in jsonbuilder, maar hoort daar niet thuis
     public String getStatusKlasseNaam() {
         return statusKlasseNaam;
@@ -60,17 +58,30 @@ public class BaseBlock {
     public void setStatusKlasseNaam(String statusKlasseNaam) {
         this.statusKlasseNaam = statusKlasseNaam;
     }
-
     public void setDescription(String description) {
 		this.description = description;
 	}
-    
+    public UUID getId() {
+        return id;
+    }
+    @Override
+    public Object clone()
+    {
+        try
+        {
+            return super.clone();
+        }
+        catch( CloneNotSupportedException e )
+        {
+            return null;
+        }
+     }
+
     public String getDescription() {
     	if (description == null)
     		return "Dit is een standaard " + this.getKlasse();
     	else{
     		return description;
     	}
-	}
-
+    }
 }

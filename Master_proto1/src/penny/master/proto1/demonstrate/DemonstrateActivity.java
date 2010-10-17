@@ -1,6 +1,7 @@
 package penny.master.proto1.demonstrate;
 
 import penny.master.blockbase.BaseBlock;
+import penny.master.networking.NetSender;
 import penny.master.proto1.R;
 import penny.master.proto1.UbiProtoMain;
 import penny.master.repositories.RepositoryManager;
@@ -36,6 +37,7 @@ public class DemonstrateActivity extends ListActivity {
 	
 	private void setUp(){
 		repomananger = ((UbiProtoMain)getApplication()).getRepoManager();
+		
 		//repomananger = new RepositoryManager();
 		Button volgstap = (Button)findViewById(R.id.btnNaarBewerkStap);
 
