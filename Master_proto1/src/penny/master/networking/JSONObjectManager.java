@@ -21,7 +21,7 @@ public class JSONObjectManager {
        String json = null;
 
        if (regelBlok){
-
+    	   //TODO: andere functie, srsly.
        }else{
            //TODO: Serieus hoort hier niet, maar anders nullpointerexept...
            block.setStatusKlasseNaam(block.getStatus().getClass().getCanonicalName());
@@ -35,14 +35,14 @@ public class JSONObjectManager {
     * @param a JSON encoded string
     * @return an object with the requested baseblock - inherited class
     */
-   @SuppressWarnings("unchecked")
+   @SuppressWarnings({ "unchecked", "rawtypes" })
 public static Object decodeJSONObject(String input){
        BaseBlock block = new Gson().fromJson(input, BaseBlock.class);
        String klasse = block.getKlasse();
        String statusKlasse = block.getStatusKlasseNaam();
        Object result = null;
 
-        //TODO: locatie
+        //TODO: locatie + beschrijving + ... ? moeten deze of gaan deze gewoon mee. Checken
        try{
            Class tocast = Class.forName(klasse);
            Class statuscast = Class.forName(statusKlasse);
