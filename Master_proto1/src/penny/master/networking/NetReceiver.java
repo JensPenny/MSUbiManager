@@ -30,6 +30,17 @@ public class NetReceiver extends Thread{
             Log.e(this.getName(), ex.toString());
         }
     }
+    
+    @Deprecated // Alleen voor testing -> inetaddr en poort uit preferences halen
+    public NetReceiver(int ontvpoort)
+    {
+    	recPort = ontvpoort;
+        try {
+            recsock = new DatagramSocket(recPort);
+        } catch (SocketException ex) {
+            Log.e(this.getName(), ex.toString());
+        }
+    }
     /*
      * Will gracefully end the socket after the reception of one last message.
      */
