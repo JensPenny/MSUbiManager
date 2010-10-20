@@ -9,4 +9,7 @@
     </application>
 
     <instrumentation android:targetPackage="penny.master.proto1" android:name="android.test.InstrumentationTestRunner" />
+    <instrumentation android:targetPackage="penny.master.networking" android:name="android.test.NetInstrumentationRunner"></instrumentation>
+    
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest> 
