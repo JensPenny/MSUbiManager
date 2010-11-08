@@ -1,6 +1,7 @@
 package penny.master.repositories;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 
 import penny.master.blockbase.BaseBlock;
@@ -14,6 +15,7 @@ public class BlockRepository extends ArrayList<BaseBlock>{
 	 * 
 	 */
 	private static final long serialVersionUID = -6271322042799569163L;
+	private ArrayList<ListChangeListener> listeners = new ArrayList<ListChangeListener>();
 	
 	public BlockRepository()
 	{
@@ -70,5 +72,60 @@ public class BlockRepository extends ArrayList<BaseBlock>{
 			}
 		}
 		return toreturn;
+	}
+	
+	/* Overridden to add the notify - call */
+	@Override
+	public boolean add(BaseBlock object) {
+		boolean toreturn = super.add(object);
+		notifyAllChangeListeners();
+		return toreturn;
+	}
+	@Override
+	public void add(int index, BaseBlock object) {
+		super.add(index, object);
+		notifyAllChangeListeners();
+	}
+	@Override
+	public boolean addAll(Collection<? extends BaseBlock> collection) {
+		boolean toreturn =  super.addAll(collection);
+		notifyAllChangeListeners();
+		return toreturn;
+	}
+	@Override
+	public boolean addAll(int location, Collection<? extends BaseBlock> collection) {
+		boolean toreturn =  super.addAll(location, collection);
+		notifyAllChangeListeners();
+		return toreturn;
+	}
+	@Override
+	public void clear() {
+		super.clear();
+		notifyAllChangeListeners();
+	}
+	@Override
+	public BaseBlock remove(int index) {
+		BaseBlock toreturn =  super.remove(index);
+		notifyAllChangeListeners();
+		return toreturn;
+	}
+	@Override
+	public boolean remove(Object object) {
+		boolean toreturn =  super.remove(object);
+		notifyAllChangeListeners();
+		return toreturn;
+	}
+	//Listener methods
+	public void addChangeListener(ListChangeListener l){
+		listeners.add(l);
+	}
+	public void removeChangeListener(ListChangeListener l){
+		if (listeners.contains(l))
+			listeners.remove(listeners.indexOf(l));
+	}
+	public void notifyAllChangeListeners(){
+		for(ListChangeListener l : listeners){
+			l.fireChangedEvent();
+		}
 	}
 }

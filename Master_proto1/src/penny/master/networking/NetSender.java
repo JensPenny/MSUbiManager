@@ -28,7 +28,7 @@ public class NetSender {
     public NetSender(String protocol, String targetIP, int port) throws UnknownHostException
     {
         this.target = InetAddress.getByName("localhost");
-        this.port = 2500;
+        this.port = 2700;
         this.protocol = "json";
 
         if (protocol != null)

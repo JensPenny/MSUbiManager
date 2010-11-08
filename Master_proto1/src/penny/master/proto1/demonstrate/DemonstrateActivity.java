@@ -4,10 +4,12 @@ import penny.master.blockbase.BaseBlock;
 import penny.master.networking.NetSender;
 import penny.master.proto1.R;
 import penny.master.proto1.UbiProtoMain;
+import penny.master.repositories.ListChangeListener;
 import penny.master.repositories.RepositoryManager;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -21,7 +23,16 @@ public class DemonstrateActivity extends ListActivity {
 	private Activity thisact = this;
 	private RepositoryManager repomananger;
 	private ListView lv;
-
+	DemonstrateListAdapter adp;
+    // Need handler for callbacks to the UI thread
+    final Handler mHandler = new Handler();
+    // Create runnable for posting
+    final Runnable mUpdateResults = new Runnable() {
+        public void run() {
+        	adp.notifyDataSetChanged();
+        }
+    };
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,8 +60,9 @@ public class DemonstrateActivity extends ListActivity {
 			}
 		});
 		
-		DemonstrateListAdapter adp = new DemonstrateListAdapter(this, R.layout.blockrow, repomananger.getBlockRepository());
+		adp = new DemonstrateListAdapter(this, R.layout.blockrow, repomananger.getEventRepository());
 		setListAdapter(adp);
+		repomananger.getEventRepository().addChangeListener(new ListChangeListener(this));		//Add the listener to keep this thing updated from thread
 	    lv = getListView();
 		lv.setTextFilterEnabled(true);
 		lv.setOnItemClickListener(new OnItemClickListener() {
@@ -70,5 +82,8 @@ public class DemonstrateActivity extends ListActivity {
 	}
 	public void setRepomanager(RepositoryManager repomananger) {
 		this.repomananger = repomananger;
+	}
+	public void updateListView(){
+		mHandler.post(mUpdateResults);
 	}
 }

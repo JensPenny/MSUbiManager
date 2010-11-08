@@ -6,9 +6,11 @@ import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.util.logging.Level;
 
+import android.app.Application;
 import android.util.Log;
 
 import penny.master.blockbase.BaseBlock;
+import penny.master.proto1.UbiProtoMain;
 
 
 /**
@@ -21,9 +23,12 @@ public class NetReceiver extends Thread{
     private boolean running = true;
     private int recPort;
     DatagramSocket recsock = null;
-    public NetReceiver()
+    UbiProtoMain app;
+    //WARNING: Be mindful of context leaks. Not stopping this thread WILL cause a leak
+    public NetReceiver(UbiProtoMain app)
     {
-        recPort = 2500;
+    	this.app = app;
+        recPort = 2700;
         try {
             recsock = new DatagramSocket(recPort);
         } catch (SocketException ex) {
@@ -62,6 +67,7 @@ public class NetReceiver extends Thread{
                 Object rec = JSONObjectManager.decodeJSONObject(receiveddata);
                 BaseBlock b = (BaseBlock)rec;
                 Log.i(this.getName(), "Received object " + b.getName() + " van klasse " + b.getKlasse());
+                app.getRepoManager().getEventRepository().add(b);
             }catch (IOException ex){
                 Log.e(this.getName(), "IO Error " + ex.toString());
             }catch (ClassCastException ex){
