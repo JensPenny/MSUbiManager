@@ -26,9 +26,9 @@ public class NetworkThreadTester  extends ActivityInstrumentationTestCase2<penny
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void setUp() throws Exception{
-		netreceiver = new NetReceiver();
+		netreceiver = new NetReceiver(2700);
 		netreceiver.start();
-		netsender = new NetSender("json", "localhost", 2500);
+		netsender = new NetSender("json", "localhost", 2700);
 	}
 	
 	public void testNetReceiver(){

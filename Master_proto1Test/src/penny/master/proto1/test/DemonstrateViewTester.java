@@ -47,11 +47,11 @@ public class DemonstrateViewTester extends ActivityInstrumentationTestCase2<penn
 		UbiProtoMain app = (UbiProtoMain)thisact.getApplication();
 		repomanager = app.getRepoManager();
 		//repomanager = new RepositoryManager();
-		repomanager.getBlockRepository().add(persblok);
-		repomanager.getBlockRepository().add(drukblokc);
-		repomanager.getBlockRepository().add(imblok);
-		repomanager.getBlockRepository().add(disporblok);
-		repomanager.getBlockRepository().add(ioblok);
+		repomanager.getEventRepository().add(persblok);
+		repomanager.getEventRepository().add(drukblokc);
+		repomanager.getEventRepository().add(imblok);
+		repomanager.getEventRepository().add(disporblok);
+		repomanager.getEventRepository().add(ioblok);
 		//thisact.setRepomanager(repomanager);
 		
 		moreblocks = (Button)thisact.findViewById(penny.master.proto1.R.id.btnDemMoreBlocks);
