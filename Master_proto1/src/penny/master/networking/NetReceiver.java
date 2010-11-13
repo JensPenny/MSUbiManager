@@ -7,6 +7,8 @@ import java.net.SocketException;
 import java.util.logging.Level;
 
 import android.app.Application;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import penny.master.blockbase.BaseBlock;
@@ -19,24 +21,31 @@ import penny.master.proto1.UbiProtoMain;
  */
 public class NetReceiver extends Thread{
 
+	//SharedPreferences prefs;
 	//Todo: uit preferences halen = ez modo
     private boolean running = true;
     private int recPort;
     DatagramSocket recsock = null;
     UbiProtoMain app;
     //WARNING: Be mindful of context leaks. Not stopping this thread WILL cause a leak
-    public NetReceiver(UbiProtoMain app)
+    /*public NetReceiver(UbiProtoMain app)
     {
     	this.app = app;
-        recPort = 2700;
+    	if (app!= null)
+    	{
+    		prefs = PreferenceManager.getDefaultSharedPreferences(app.getBaseContext());
+    		recPort = prefs.getInt("inet_inc_port", 2700);
+    	}else
+    	{
+    		recPort = 2700;
+    	}
         try {
             recsock = new DatagramSocket(recPort);
         } catch (SocketException ex) {
             Log.e(this.getName(), ex.toString());
         }
-    }
+    }*/
     
-    @Deprecated // Alleen voor testing -> inetaddr en poort uit preferences halen
     public NetReceiver(int ontvpoort)
     {
     	recPort = ontvpoort;

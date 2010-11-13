@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory android:title="Connection settings">
+		<EditTextPreference
+			android:title="ServerIP"
+			android:defaultValue="localhost"
+			android:key="inet_link"
+			android:summary="IP of the ubicomp framework"
+		/>
+		<EditTextPreference
+			android:title="Incoming port"
+			android:defaultValue="2700"
+			android:key="inet_inc_port"
+			android:summary="Port where to receive packets"
+		/>
+		<EditTextPreference
+			android:title="Outbound port"
+			android:defaultValue="2700"
+			android:key="inet_out_port"
+			android:summary="Port where to send packets back to the framework module"
+		/>
+	</PreferenceCategory>
+</PreferenceScreen>

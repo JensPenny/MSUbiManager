@@ -12,9 +12,8 @@ public class UbiProtoMain extends Application {
 	public UbiProtoMain() {
 		super();
 		repomanager = new RepositoryManager();
-		netreceiver = new NetReceiver(this);		// Geef de applicatie mee, zodat de thread terug kan koppelen
+		//netreceiver = new NetReceiver(this);		// Geef de applicatie mee, zodat de thread terug kan koppelen
 		// Netreceiver ook maar meteen starten e. Vroeg begonnen = half gewonnen
-		netreceiver.start();
 	}
 
 	public RepositoryManager getRepoManager() {
@@ -24,6 +23,10 @@ public class UbiProtoMain extends Application {
 	public NetReceiver getNetReceiver() {
 		return netreceiver;
 	}
+	public void buildAndStartNetReceiver(int port){ //Geinitialiseert in demonstrateactivity, wegens issues in starten in app
+		netreceiver = new NetReceiver(port);
+		startNetReceiver();
+	}
 
 	@Override
 	public void onTerminate() {
@@ -32,11 +35,12 @@ public class UbiProtoMain extends Application {
 	}
 
 	public void stopNetReceiver() {
-		netreceiver.stop();
+		if (netreceiver != null)
+			netreceiver.stop();
 	}
 
 	public void startNetReceiver() {
-		netreceiver.start();
+		if (netreceiver != null)
+			netreceiver.start();
 	}
-
 }

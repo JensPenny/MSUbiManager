@@ -12,7 +12,10 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.List;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import penny.master.blockbase.BaseBlock;
 
@@ -24,8 +27,9 @@ public class NetSender {
     private InetAddress target;
     private int port;
     String protocol;
+    SharedPreferences prefs;
 
-    public NetSender(String protocol, String targetIP, int port) throws UnknownHostException
+   /* public NetSender(String protocol, String targetIP, int port) throws UnknownHostException
     {
         this.target = InetAddress.getByName("localhost");
         this.port = 2700;
@@ -37,6 +41,20 @@ public class NetSender {
             this.target =  InetAddress.getByName(targetIP);
         if (port != 0)
             this.port = port;
+    }*/
+    public NetSender(Context context) throws UnknownHostException
+    {
+    	this.protocol = "json";
+    	prefs = PreferenceManager.getDefaultSharedPreferences(context);
+    	if (prefs != null)
+    	{
+    		this.target = InetAddress.getByName(prefs.getString("inet_link", "localhost"));
+    		this.port = prefs.getInt("inet_out_port", 2700);
+    	}
+    	else{
+    		this.target = InetAddress.getByName("localhost");
+    		this.port = 2700;
+    	}
     }
     
     public void sendBlock(BaseBlock block)
