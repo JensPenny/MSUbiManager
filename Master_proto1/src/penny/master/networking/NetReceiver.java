@@ -81,6 +81,10 @@ public class NetReceiver extends Thread{
                 Log.e(this.getName(), "IO Error " + ex.toString());
             }catch (ClassCastException ex){
                 Log.e(this.getName(), "Could not cast to baseblock");
+            }catch (NullPointerException ex){
+            	Log.e(this.getName(), "Could not receive on socket");
+            	ex.printStackTrace();
+            	stopSocketThread(); //TODO: MOET GRACEFULL -> Interrupten dus: http://stackoverflow.com/questions/680180/where-to-stop-destroy-threads-in-android-service-class
             }
         }
     }

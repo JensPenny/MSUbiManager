@@ -12,6 +12,7 @@
             </intent-filter>
         </activity>
 	<activity android:name=".EditPreferences"/>
+	<activity android:name=".edit.EditActivity" android:screenOrientation="landscape"/>
     </application>
 
 <uses-permission android:name="android.permission.INTERNET" />

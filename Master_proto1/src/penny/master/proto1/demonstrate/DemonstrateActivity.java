@@ -5,6 +5,7 @@ import penny.master.networking.NetSender;
 import penny.master.proto1.EditPreferences;
 import penny.master.proto1.R;
 import penny.master.proto1.UbiProtoMain;
+import penny.master.proto1.edit.EditActivity;
 import penny.master.repositories.ListChangeListener;
 import penny.master.repositories.RepositoryManager;
 import android.app.Activity;
@@ -49,8 +50,9 @@ public class DemonstrateActivity extends ListActivity {
 	
 	@Override
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
+		UbiProtoMain app = (UbiProtoMain) this.getApplication();
+		app.stopNetReceiver();
 	}
 	
 	private void setUp(){
@@ -59,15 +61,16 @@ public class DemonstrateActivity extends ListActivity {
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		//Opzetten netreceiver
 		UbiProtoMain app = (UbiProtoMain) this.getApplication();
-		app.buildAndStartNetReceiver(prefs.getInt("inet_inc_port", 2700));
+		app.buildAndStartNetReceiver(new Integer(prefs.getString("inet_inc_port", "2700")));
 		//repomananger = new RepositoryManager();
 		Button volgstap = (Button)findViewById(R.id.btnNaarBewerkStap);
 
 		volgstap.setOnClickListener(new OnClickListener() {		
 			@Override
 			public void onClick(View v) {
-//		    	Intent edit = new Intent(thisact, EditScherm.class);
-//		    	startActivity(edit);				
+				//TODO: checken van inputlijst
+		    	Intent edit = new Intent(thisact, EditActivity.class);
+		    	startActivity(edit);				
 			}
 		});
 		

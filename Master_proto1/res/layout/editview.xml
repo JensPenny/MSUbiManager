@@ -3,27 +3,65 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent"
-  android:orientation="horizontal">
+  android:orientation="vertical">
   <LinearLayout
-  	android:id="@+id/cntTopUnusedBlocks"
+  	android:id="@+id/cntTopBlockContainer"
   	android:layout_width="fill_parent"
-  	android:layout_height="wrap_content"
-  >
-  
-  </LinearLayout>
-  
+  	android:layout_height="60dp"
+  	>
+  		<Button
+  			android:id="@+id/btnEditVorige"
+  			android:layout_width="90dp"
+  			android:layout_height="fill_parent"
+  			android:text="Vorige"
+  			/>
+	  	<Gallery
+		  	android:id="@+id/glBlockGallery"
+		  	android:layout_width="300dp"
+		  	android:layout_height="fill_parent"
+	  	/>
+ 	  	<Button
+			android:id="@+id/btnEditVolgende"
+			android:layout_width="90dp"
+			android:layout_height="fill_parent"
+			android:text="Volgende"
+		/>
+  </LinearLayout> 
   <LinearLayout
   	android:id="@+id/cntMiddleRuleContainer"
-  	android:layout_width="fill_parent"
-  	android:layout_height="wrap_content"
+  	android:layout_width="480dp"
+  	android:layout_height="220dp"
+  	android:orientation="horizontal"
   >
+ 	<ListView
+  		android:id="@id/android:list"
+  		android:scrollbars="vertical"
+  		android:layout_width="240dp"
+  		android:layout_height="fill_parent"
+  	/>
+  	<TextView
+    android:id="@id/android:empty"
+    android:layout_width="fill_parent"
+    android:layout_height="30dp"
+    android:text="@string/demonstr_no_items"/>
+  	<ListView
+  		android:id="@+id/thenlistview"
+  		android:scrollbars="vertical"
+  		android:layout_width="240dp"
+  		android:layout_height="fill_parent"
+  	/> 
+  	  	<TextView
+    android:id="@id/android:empty"
+    android:layout_width="fill_parent"
+    android:layout_height="30dp"
+    android:text="@string/demonstr_no_items"/>
   </LinearLayout>
   
-  <LinearLayout
-  	android:id="@+id/cntBottomRuleDescription"
+  <TextView
+  	android:id="@+id/txtRuleExplained"
   	android:layout_width="fill_parent"
-  	android:layout_height="wrap_content"
-  >
-  </LinearLayout>
+  	android:layout_height="fill_parent"
+  	android:text="Dit is een testtekst"
+  	/>
   
 </LinearLayout>
