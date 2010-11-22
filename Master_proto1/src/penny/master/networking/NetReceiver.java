@@ -4,15 +4,10 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
-import java.util.logging.Level;
-
-import android.app.Application;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.util.Log;
 
 import penny.master.blockbase.BaseBlock;
 import penny.master.proto1.UbiProtoMain;
+import android.util.Log;
 
 
 /**
@@ -26,7 +21,7 @@ public class NetReceiver extends Thread{
     private boolean running = true;
     private int recPort;
     DatagramSocket recsock = null;
-    UbiProtoMain app;
+    UbiProtoMain app = null;
     //WARNING: Be mindful of context leaks. Not stopping this thread WILL cause a leak
     /*public NetReceiver(UbiProtoMain app)
     {
@@ -46,17 +41,19 @@ public class NetReceiver extends Thread{
         }
     }*/
     
-    public NetReceiver(int ontvpoort)
+    public NetReceiver(UbiProtoMain app, int ontvpoort)
     {
     	recPort = ontvpoort;
+    	this.app = app;
         try {
             recsock = new DatagramSocket(recPort);
         } catch (SocketException ex) {
             Log.e(this.getName(), ex.toString());
         }
+        this.setName("Netreceiver_thread");
     }
     /*
-     * Will gracefully end the socket after the reception of one last message.
+     * Will gracefully end the socket -> IF this doesn't work, just let it throw an exception in the run
      */
     public void stopSocketThread()
     {
@@ -76,7 +73,11 @@ public class NetReceiver extends Thread{
                 Object rec = JSONObjectManager.decodeJSONObject(receiveddata);
                 BaseBlock b = (BaseBlock)rec;
                 Log.i(this.getName(), "Received object " + b.getName() + " van klasse " + b.getKlasse());
-                app.getRepoManager().getEventRepository().add(b);
+                if (app.getRepoManager().getRecording()) //Als recording -> opnemen
+                {
+                	app.getRepoManager().getEventRepository().add(b);
+                	Log.i(this.getName(), "Adding latest object to eventrepository");
+                }
             }catch (IOException ex){
                 Log.e(this.getName(), "IO Error " + ex.toString());
             }catch (ClassCastException ex){
@@ -84,7 +85,7 @@ public class NetReceiver extends Thread{
             }catch (NullPointerException ex){
             	Log.e(this.getName(), "Could not receive on socket");
             	ex.printStackTrace();
-            	stopSocketThread(); //TODO: MOET GRACEFULL -> Interrupten dus: http://stackoverflow.com/questions/680180/where-to-stop-destroy-threads-in-android-service-class
+            	stopSocketThread(); //TODO: MOET GRACEFUL -> Interrupten dus: http://stackoverflow.com/questions/680180/where-to-stop-destroy-threads-in-android-service-class
             }
         }
     }

@@ -34,7 +34,7 @@ public class DemonstrateActivity extends ListActivity {
 	DemonstrateListAdapter adp;
     // Need handler for callbacks to the UI thread
     final Handler mHandler = new Handler();
-    // Create runnable for posting
+    // Create runnable for actually doing the work that is called in the handler 
     final Runnable mUpdateResults = new Runnable() {
         public void run() {
         	adp.notifyDataSetChanged();
@@ -62,9 +62,7 @@ public class DemonstrateActivity extends ListActivity {
 		//Opzetten netreceiver
 		UbiProtoMain app = (UbiProtoMain) this.getApplication();
 		app.buildAndStartNetReceiver(new Integer(prefs.getString("inet_inc_port", "2700")));
-		//repomananger = new RepositoryManager();
 		Button volgstap = (Button)findViewById(R.id.btnNaarBewerkStap);
-
 		volgstap.setOnClickListener(new OnClickListener() {		
 			@Override
 			public void onClick(View v) {
@@ -73,10 +71,36 @@ public class DemonstrateActivity extends ListActivity {
 		    	startActivity(edit);				
 			}
 		});
+		Button record = (Button)findViewById(R.id.btnDemRecordStop);
+		record.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				boolean recording = repomananger.getRecording();
+				Button b = (Button)v;
+				if(recording){
+					//Van opnemen -> niet opnemen
+					repomananger.stopRecording();
+					b.setText("Start opname");
+				}else{
+					//Van niet opnemen -> opnemen
+					repomananger.resetEventRepository();
+					repomananger.startRecording();
+					b.setText("Stop opname");
+					mHandler.post(mUpdateResults);
+				}
+			}
+		});
+		Button instellingen = (Button)findViewById(R.id.btnDemSetting);
+		instellingen.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent((DemonstrateActivity)thisact, EditPreferences.class));				
+			}
+		});
 		
 		adp = new DemonstrateListAdapter(this, R.layout.blockrow, repomananger.getEventRepository());
 		setListAdapter(adp);
-		repomananger.getEventRepository().addChangeListener(new ListChangeListener(this));		//Add the listener to keep this thing updated from thread
+		repomananger.getEventRepository().addChangeListener(new ListChangeListener(this));//Add the listener to keep this thing updated from thread
 	    lv = getListView();
 		lv.setTextFilterEnabled(true);
 		lv.setOnItemClickListener(new OnItemClickListener() {

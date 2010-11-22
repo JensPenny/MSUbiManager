@@ -31,6 +31,9 @@ public class RepositoryManager {
 	public void stopRecording(){
 		recording = false;
 	}
+	public synchronized boolean getRecording(){
+		return recording;
+	}
 	
 	/*
 	 * Initiate the repo for all the events
@@ -44,7 +47,8 @@ public class RepositoryManager {
 	/*
 	 * Reset the event repository (called when restart recording)
 	 */
-	public void resetEventRepository(){
-		eventrepo = new BlockRepository(null);
+	public synchronized void resetEventRepository(){
+		//eventrepo = new BlockRepository(null); Werkt niet goed met changes in GUID -> gewoon clearen
+		eventrepo.clear();
 	}
 }

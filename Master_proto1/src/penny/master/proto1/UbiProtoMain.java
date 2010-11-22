@@ -26,7 +26,7 @@ public class UbiProtoMain extends Application {
 	public void buildAndStartNetReceiver(int port){ //Geinitialiseert in demonstrateactivity, wegens issues in starten in app
 		if (netreceiver != null)
 			netreceiver.stop();
-		netreceiver = new NetReceiver(port);
+		netreceiver = new NetReceiver(this, port);
 		startNetReceiver();
 	}
 
