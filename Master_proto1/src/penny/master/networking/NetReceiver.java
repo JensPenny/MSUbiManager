@@ -23,23 +23,6 @@ public class NetReceiver extends Thread{
     DatagramSocket recsock = null;
     UbiProtoMain app = null;
     //WARNING: Be mindful of context leaks. Not stopping this thread WILL cause a leak
-    /*public NetReceiver(UbiProtoMain app)
-    {
-    	this.app = app;
-    	if (app!= null)
-    	{
-    		prefs = PreferenceManager.getDefaultSharedPreferences(app.getBaseContext());
-    		recPort = prefs.getInt("inet_inc_port", 2700);
-    	}else
-    	{
-    		recPort = 2700;
-    	}
-        try {
-            recsock = new DatagramSocket(recPort);
-        } catch (SocketException ex) {
-            Log.e(this.getName(), ex.toString());
-        }
-    }*/
     
     public NetReceiver(UbiProtoMain app, int ontvpoort)
     {

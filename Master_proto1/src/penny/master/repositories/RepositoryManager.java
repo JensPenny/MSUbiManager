@@ -7,11 +7,19 @@ public class RepositoryManager {
 	private BlockRepository eventrepo = null; //Verzameling van alle events die gebeurt zijn
 	private boolean recording = false;
 	
+	/**
+	 * 
+	 * @return A list of all different blocks over all connected firmware (middleware needs to have sent all blocks: not implemented)
+	 */
 	public BlockRepository getBlockRepository(){
 		if (blockrepo == null)
 			blockrepo = new BlockRepository(null);
 		return blockrepo;
 	}
+	/**
+	 * 
+	 * @return A map of all the rules
+	 */
 	public RuleRepository getRuleRepository(){
 		if (rulerepo == null)
 			rulerepo = new RuleRepository();
@@ -24,31 +32,41 @@ public class RepositoryManager {
 		rulerepo = repo;
 	}
 	//TODO: refactor
+	/**
+	 * Sets the application state to 'recording' for the listening socket
+	 */
 	public void startRecording()
 	{
 		recording = true;
 	}
+	/**
+	 * Gracefully ends the recording for the listening socket
+	 */
 	public void stopRecording(){
 		recording = false;
 	}
+	/**
+	 * 
+	 * @return The current state of the recording system
+	 */
 	public synchronized boolean getRecording(){
 		return recording;
 	}
 	
-	/*
-	 * Initiate the repo for all the events
-	 * TODO: This repo needs a max size
+	/**
+	 * @return get the list of all current recorded events or build a new one
+	 * TODO: this repo needs a max size
 	 */
 	public BlockRepository getEventRepository(){
 		if (eventrepo == null)
 			eventrepo = new BlockRepository(null);
 		return eventrepo;
 	}
-	/*
-	 * Reset the event repository (called when restart recording)
+	/**
+	 * Reset the event repository (call when restart recording)
+	 * This method is thread-safe
 	 */
 	public synchronized void resetEventRepository(){
-		//eventrepo = new BlockRepository(null); Werkt niet goed met changes in GUID -> gewoon clearen
 		eventrepo.clear();
 	}
 }

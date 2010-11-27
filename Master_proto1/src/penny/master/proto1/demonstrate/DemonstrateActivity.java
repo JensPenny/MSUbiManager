@@ -125,7 +125,7 @@ public class DemonstrateActivity extends ListActivity {
 		mHandler.post(mUpdateResults);
 	}
 
-	//Menu functions: bring up a level
+	//TODO: Menu functions: bring up a level -> To all activities
 	private static final int EDIT_ID = 1;
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
