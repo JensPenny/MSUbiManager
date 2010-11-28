@@ -40,9 +40,11 @@ public static Object decodeJSONObject(String input){
        BaseBlock block = new Gson().fromJson(input, BaseBlock.class);
        String klasse = block.getKlasse();
        String statusKlasse = block.getStatusKlasseNaam();
+       String locatie = block.getLocation();
+       String description = block.getDescription();
        Object result = null;
 
-        //TODO: locatie + beschrijving + ... ? moeten deze of gaan deze gewoon mee. Checken
+        //TODO: locatie + beschrijving gaan NIET gewoon mee
        try{
            Class tocast = Class.forName(klasse);
            Class statuscast = Class.forName(statusKlasse);
@@ -59,6 +61,14 @@ public static Object decodeJSONObject(String input){
 //           }
            Constructor ct = tocast.getConstructor(parameterType);
            result = ct.newInstance(argList);
+           
+           //Extra onbekende informatie
+           BaseBlock b = (BaseBlock)result;
+           if(locatie != null)
+        	   b.setLocatie(locatie);
+           if (description != null)
+        	   b.setDescription(description);
+           
        }catch (ClassNotFoundException ex)
        {
            Log.e("Json Manager", "Could not find class with name " + ex.getMessage());

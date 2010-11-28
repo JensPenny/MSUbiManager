@@ -54,7 +54,12 @@ public class DemonstrateListAdapter extends ArrayAdapter<BaseBlock>{
         	//desc.setText("Geen beschrijving gegeven");
         	desc.setText(currObject.getDescription());
         	status.setText(currObject.getStatus().toString());
-        	img.setImageResource(R.drawable.icon);
+        	//img.setImageResource(R.drawable.icon);
+        	try{
+        	img.setImageResource(currObject.getImageresID());
+        	}catch (Exception ex){
+        		//Kon de resource niet zetten -> standaard icon tonen
+        	}
         }
     	return v;
     }

@@ -28,7 +28,7 @@ public class EditListAdapter extends ArrayAdapter<BaseBlock>{
     	View v = convertView;
         if (v == null) {
             LayoutInflater vi = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = vi.inflate(penny.master.proto1.R.layout.blockrow, null);
+            v = vi.inflate(penny.master.proto1.R.layout.blockrow_edit, null);
         }
         
         BaseBlock currObject = items.get(position);
@@ -39,12 +39,12 @@ public class EditListAdapter extends ArrayAdapter<BaseBlock>{
         	TextView status = (TextView)v.findViewById(R.id.blockStatus);
         	ImageView img = (ImageView)v.findViewById(R.id.blockimgIcon);
         	
-        	loc.setText("EDM");
+        	loc.setText(currObject.getLocation());
         	name.setText(currObject.getName());
         	//desc.setText("Geen beschrijving gegeven");
-        	desc.setText("test");
-        	status.setText("test");
-        	img.setImageResource(R.drawable.icon);
+        	desc.setText(currObject.getDescription());
+        	status.setText(currObject.getStatus().toString());
+        	img.setImageResource(currObject.getImageresID());
         }
     	return v;
     }

@@ -1,6 +1,7 @@
 package penny.master.proto1.edit;
 
 import penny.master.blockbase.BaseBlock;
+import penny.master.blockbase.BaseSensorBlock;
 import penny.master.blockbase.PhoneIOBlock;
 import penny.master.blockbase.TYPE;
 import penny.master.blockbase.dataenums.GSMSTATUS;
@@ -8,6 +9,7 @@ import penny.master.proto1.R;
 import penny.master.proto1.UbiProtoMain;
 import penny.master.proto1.demonstrate.DemonstrateActivity;
 import penny.master.repositories.BlockRepository;
+import penny.master.repositories.EditChangeListener;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
@@ -145,6 +147,21 @@ public class EditActivity extends ListActivity{
 				//finish en setresult zou info terug kunnen sturen, maar is niet nodig denk ik
 			}
 		});
+		
+		volgendestap.setOnClickListener(new OnClickListener() {	
+			@Override
+			public void onClick(View v) {
+				//Registreer regel + voeg toe aan repo 
+				//TODO: Verzend regel naar framework
+			}
+		});
+		
+		//Zet listeners op lijsten
+		ifblocklist.addChangeListener(new EditChangeListener(this));
+		thenblocklist.addChangeListener(new EditChangeListener(this));
+		
+		//Initiele text in textview
+		updateTextView();
 	}
 	
 	//TODO: refactor in aparte klasse
@@ -201,4 +218,44 @@ public class EditActivity extends ListActivity{
 			}
 		}
 	};
+
+	public void updateTextView() {
+		if(txtruleexplained != null){
+			String text = "";
+			text += "ALS ";
+			boolean firstelem = true;
+			for (BaseBlock b : ifblocklist) {
+				try{
+					if (!firstelem){
+						text += " EN ";
+						firstelem = false;
+					}
+					BaseSensorBlock s = (BaseSensorBlock)b;
+					text += s.getNaturalStatus();
+				}
+				catch (ClassCastException ex){
+					Log.e(this.getClass().getName(), "Could not cast block to sensorblock");
+				}
+			}
+			
+			text += " DAN ";
+			firstelem = true;
+			
+			for (BaseBlock b : thenblocklist) {
+				try{
+					if (!firstelem){
+						text += " EN ";
+						firstelem = false;
+					}
+					BaseSensorBlock s = (BaseSensorBlock)b;
+					text += s.getNaturalStatus();
+				}
+				catch (ClassCastException ex){
+					Log.e(this.getClass().getName(), "Could not cast block to sensorblock");
+				}
+			}			
+			
+			txtruleexplained.setText(text);
+		}
+	}
 }

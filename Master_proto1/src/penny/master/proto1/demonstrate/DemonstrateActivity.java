@@ -6,7 +6,7 @@ import penny.master.proto1.EditPreferences;
 import penny.master.proto1.R;
 import penny.master.proto1.UbiProtoMain;
 import penny.master.proto1.edit.EditActivity;
-import penny.master.repositories.ListChangeListener;
+import penny.master.repositories.DemoChangeListener;
 import penny.master.repositories.RepositoryManager;
 import android.app.Activity;
 import android.app.ListActivity;
@@ -100,7 +100,7 @@ public class DemonstrateActivity extends ListActivity {
 		
 		adp = new DemonstrateListAdapter(this, R.layout.blockrow, repomananger.getEventRepository());
 		setListAdapter(adp);
-		repomananger.getEventRepository().addChangeListener(new ListChangeListener(this));//Add the listener to keep this thing updated from thread
+		repomananger.getEventRepository().addChangeListener(new DemoChangeListener(this));//Add the listener to keep this thing updated from thread
 	    lv = getListView();
 		lv.setTextFilterEnabled(true);
 		lv.setOnItemClickListener(new OnItemClickListener() {

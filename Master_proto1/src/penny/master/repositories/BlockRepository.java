@@ -43,7 +43,7 @@ public class BlockRepository extends ArrayList<BaseBlock>{
 		Iterator<BaseBlock> iter = this.iterator();
 		while (iter.hasNext()){
 			BaseBlock b = iter.next();
-			if (b.getLocatie().equals(location))
+			if (b.getLocation().equals(location))
 				toreturn.add(b);
 		}
 		return toreturn;

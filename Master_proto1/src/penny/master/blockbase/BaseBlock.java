@@ -7,6 +7,8 @@ package penny.master.blockbase;
 
 import java.util.UUID;
 
+import penny.master.proto1.R;
+
 /**
  *
  * @author jens
@@ -20,6 +22,9 @@ public class BaseBlock implements Cloneable{
     private String locatie = null;
     private String description = null;
     private UUID id = UUID.randomUUID();
+    
+    //Android only normaal: Refactor indien 'echt' gebruikt - Wis indien niet gebruikt
+    private int imageresID = R.drawable.icon;
 
     public String getName() {
         return name;
@@ -42,7 +47,7 @@ public class BaseBlock implements Cloneable{
     public boolean checkStatus(Object status){
         return (this.status.equals(status));
     }
-    public String getLocatie() {
+    public String getLocation() {
         return locatie;
     }
     public void setLocatie(String locatie) {
@@ -77,7 +82,13 @@ public class BaseBlock implements Cloneable{
         }
      }
 
-    public String getDescription() {
+    public int getImageresID() {
+		return imageresID;
+	}
+	public void setImageresID(int imageresID) {
+		this.imageresID = imageresID;
+	}
+	public String getDescription() {
     	if (description == null)
     		return "Dit is een standaard " + this.getKlasse();
     	else{

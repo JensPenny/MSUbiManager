@@ -14,25 +14,25 @@
  			/> 			
  		<LinearLayout
  			android:orientation="vertical"
- 			android:layout_width="180dp"
+ 			android:layout_width="100dp"
  			android:layout_height="wrap_content"
  			>
 	 		<TextView
-		  		android:layout_width="180dp"
+		  		android:layout_width="100dp"
 		  		android:layout_height="wrap_content"
 		  		android:id="@+id/blockname"
 		  		android:text="naam"
 		  		android:gravity="center_horizontal"
 		  	/>		 		
 		  	<TextView
-		  		android:layout_width="180dp"
+		  		android:layout_width="100dp"
 		  		android:layout_height="wrap_content"
 		  		android:id="@+id/blockdescription"
 		  		android:text="Beschrijving"	
 		  	/>	
 		  	<TextView
 		  		android:id="@+id/blockLocation"
-		  		android:layout_width="180dp"
+		  		android:layout_width="100dp"
 		  		android:layout_height="wrap_content"
 		  		android:text="EDM"
 		  		/>

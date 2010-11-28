@@ -56,6 +56,7 @@ public class NetReceiver extends Thread{
                 Object rec = JSONObjectManager.decodeJSONObject(receiveddata);
                 BaseBlock b = (BaseBlock)rec;
                 Log.i(this.getName(), "Received object " + b.getName() + " van klasse " + b.getKlasse());
+                Log.i(this.getName(), "Description of object = " + b.getDescription());
                 if (app.getRepoManager().getRecording()) //Als recording -> opnemen
                 {
                 	app.getRepoManager().getEventRepository().add(b);

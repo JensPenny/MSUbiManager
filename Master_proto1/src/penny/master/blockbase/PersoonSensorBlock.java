@@ -6,6 +6,7 @@
 package penny.master.blockbase;
 
 import penny.master.blockbase.dataenums.BASESENSORSTATUS;
+import penny.master.proto1.R;
 
 /**
  *
@@ -17,6 +18,7 @@ public class PersoonSensorBlock extends BaseSensorBlock{
 
     public PersoonSensorBlock(String name, BASESENSORSTATUS status){
             super(name, status);
+            setImageresID(R.drawable.test_icon_sensor);
     }
 
     @Override
