@@ -3,16 +3,20 @@ package penny.master.proto1.edit;
 import penny.master.blockbase.BaseBlock;
 import penny.master.blockbase.BaseSensorBlock;
 import penny.master.blockbase.PhoneIOBlock;
+import penny.master.blockbase.RuleBlock;
 import penny.master.blockbase.TYPE;
 import penny.master.blockbase.dataenums.GSMSTATUS;
+import penny.master.blockbase.dataenums.RULESTATUS;
 import penny.master.proto1.R;
 import penny.master.proto1.UbiProtoMain;
 import penny.master.proto1.demonstrate.DemonstrateActivity;
 import penny.master.repositories.BlockRepository;
 import penny.master.repositories.EditChangeListener;
+import penny.master.repositories.RepositoryManager;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,6 +43,8 @@ public class EditActivity extends ListActivity{
 	private EditListAdapter iflistadapter;
 	private EditListAdapter thenlistadapter;
 	private TextView txtruleexplained;
+	private final Context thiscontext = this;
+	private UbiProtoMain app;
 	
 	private BlockRepository ifblocklist = new BlockRepository(); //List with if - blocks
 	private BlockRepository thenblocklist = new BlockRepository(); //List with then - blocks
@@ -50,7 +56,7 @@ public class EditActivity extends ListActivity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.editview);
 		
-		UbiProtoMain app = (UbiProtoMain) this.getApplication();
+		app = (UbiProtoMain)this.getApplication();
 		processDemonstrateList(app.getRepoManager().getEventRepository());
 		
 		setUpGallery();
@@ -152,7 +158,33 @@ public class EditActivity extends ListActivity{
 			@Override
 			public void onClick(View v) {
 				//Registreer regel + voeg toe aan repo 
+				if(!ifblocklist.isEmpty() && !thenblocklist.isEmpty())
+				{
+					RuleBlock rule = new RuleBlock("Regel1", RULESTATUS.UNTRIGGERED);
+					for (BaseBlock b : ifblocklist) {
+						rule.addNewCondition(b, b.getStatus());
+					}
+					for (BaseBlock b : thenblocklist){
+						rule.addNewCondition(b, b.getStatus());
+					}
+					app.getRepoManager().getRuleRepository().add(rule);
+					Toast.makeText(EditActivity.this, "De regel is in het systeem toegevoegd!" , Toast.LENGTH_SHORT).show();	
+				}else{
+					AlertDialog.Builder builder = new AlertDialog.Builder(thiscontext);
+					builder.setMessage("Zorg dat er zowel condities als acties in de opgebouwde regel beschikbaar zijn")
+				       .setCancelable(false)
+				       .setTitle("Fout in opbouw van de regel")
+				       .setPositiveButton("OK", new DialogInterface.OnClickListener() {			
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.cancel();
+						}
+					});
+					AlertDialog alert = builder.create();
+					alert.show();
+				}
 				//TODO: Verzend regel naar framework
+
 			}
 		});
 		

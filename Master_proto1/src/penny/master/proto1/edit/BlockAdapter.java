@@ -16,13 +16,16 @@ public class BlockAdapter extends BaseAdapter{
 	
 	//TODO: Aanpassen -> Dit is een test
     private Integer[] imageids = {
-            R.drawable.sample_1,
+            /*R.drawable.sample_1,
             R.drawable.sample_2,
             R.drawable.sample_3,
             R.drawable.sample_4,
             R.drawable.sample_5,
             R.drawable.sample_6,
-            R.drawable.sample_7
+            R.drawable.sample_7*/
+    		R.drawable.blockbase_onbekende,
+    		R.drawable.blockbase_conflicterende,
+    		R.drawable.blockbase_alle
     };
 	
 	public BlockAdapter(Context c) {
@@ -53,7 +56,7 @@ public class BlockAdapter extends BaseAdapter{
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ImageView i = new ImageView(context);
 		i.setImageResource(imageids[position]);
-		i.setLayoutParams(new Gallery.LayoutParams(150,100));
+		i.setLayoutParams(new Gallery.LayoutParams(110,60));
 		i.setScaleType(ImageView.ScaleType.CENTER);
 		i.setBackgroundResource(gallerybackground);
 		return i;

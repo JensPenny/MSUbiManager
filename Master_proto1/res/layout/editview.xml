@@ -63,7 +63,7 @@
 	<LinearLayout
   	android:id="@+id/cntBottom"
   	android:layout_width="480dp"
-  	android:layout_height="30dp"
+  	android:layout_height="fill_parent"
   	android:orientation="horizontal"
   >
 
@@ -71,7 +71,13 @@
   	android:id="@+id/txtRuleExplained"
   	android:layout_width="fill_parent"
   	android:layout_height="fill_parent"
-  	android:text="Dit is een testtekst"
+  	android:scrollbars="vertical"
+  	android:text="Dit is een testtekst
+  	testtekst
+  	testtekst
+  	testtekst
+  	testtekst
+  	testtekst"
   	/>
   	</LinearLayout>
   

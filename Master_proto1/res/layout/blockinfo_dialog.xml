@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="300dp"
+  android:layout_height="340dp"
+  android:orientation="vertical"
+  android:id="@+id/dialog_block_root">
+  
+  <LinearLayout
+  android:layout_width="fill_parent"
+  android:layout_height="50dp"
+  android:orientation="horizontal"
+  >
+  	<ImageView
+  		android:id="@+id/dialog_detail_icon"
+  		android:src="@drawable/icon"
+  		android:layout_width="48dp"
+  		android:layout_height="48dp"
+  		android:gravity="center_vertical|center_horizontal"
+  		/>
+  	<TextView 
+  		android:id="@+id/dialog_detail_name"
+  		android:layout_width="252dp"
+  		android:layout_height="fill_parent"
+  		android:text="NAAM"
+  		android:textStyle="bold"
+  		android:textSize="20dp"
+  		android:gravity="center_vertical|center_horizontal"
+  		/>
+  </LinearLayout>
+  <View style="@style/HorizontalBreakLine"/>
+ 
+  <LinearLayout
+  	android:layout_width="fill_parent"
+  	android:layout_height="240dp"
+  	android:orientation="horizontal">
+  
+  	<TextView 
+  		android:id="@+id/dial_txtDescription"
+  		android:layout_width="fill_parent"
+  		android:layout_height="30dp"
+  		android:text="Beschrijving: "
+  		android:paddingTop="5dp"
+  		/>
+  		
+  	<LinearLayout
+  		android:layout_width="fill_parent"
+  		android:layout_height="30dp"
+  		android:orientation="vertical"
+  		android:paddingTop="5dp"
+  		>
+  		<TextView
+  			android:id="@+id/dial_txtStatus"
+  			android:layout_width="150dp"
+  			android:layout_height="fill_parent"
+  			android:text="Status: "
+  			/>
+  		<Spinner
+  			android:id="@+id/dial_spStatus"
+  			android:layout_width="150dp"
+  			android:layout_height="fill_parent"
+  			/>
+  	</LinearLayout>
+  	
+  	<TextView 
+  		android:id="@+id/dial_txtType"
+  		android:layout_width="fill_parent"
+  		android:layout_height="30dp"
+  		android:text="Blocktype: "
+  		android:paddingTop="5dp"
+  		/>
+  		
+  	<TextView 
+  		android:id="@+id/dial_txtKlasse"
+  		android:layout_width="fill_parent"
+  		android:layout_height="30dp"
+  		android:text="Klasse: "
+  		android:paddingTop="5dp"
+  		/>
+  		
+  	<TextView 
+  		android:id="@+id/dial_txtLocatie"
+  		android:layout_width="fill_parent"
+  		android:layout_height="30dp"
+  		android:text="Locatie: "
+  		android:paddingTop="5dp"
+  		/>
+  </LinearLayout>
+  
+  <View style="@style/HorizontalBreakLine"/>
+  
+  <LinearLayout
+  	android:layout_width="fill_parent"
+  	android:layout_height="50dp"
+  	android:orientation="horizontal">
+  	
+  	<Button
+  		android:id="@+id/dialog_btnOk"
+  		android:text="OK"
+  		android:layout_height="50dp"
+  		android:layout_width="100dp"/>
+  	<Button
+  		android:id="@+id/dialog_btnDelete"
+  		android:text="Verwijder"
+  		android:layout_height="50dp"
+  		android:layout_width="100dp"/>
+  	<Button
+  		android:id="@+id/dialog_btnMove"
+  		android:text="Verplaats"
+  		android:layout_height="50dp"
+  		android:layout_width="100dp"/>
+  </LinearLayout>
+  
+</LinearLayout>

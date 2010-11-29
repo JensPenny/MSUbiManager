@@ -1,7 +1,6 @@
 package penny.master.proto1.demonstrate;
 
 import penny.master.blockbase.BaseBlock;
-import penny.master.networking.NetSender;
 import penny.master.proto1.EditPreferences;
 import penny.master.proto1.R;
 import penny.master.proto1.UbiProtoMain;
@@ -14,16 +13,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class DemonstrateActivity extends ListActivity {
 	
@@ -33,7 +33,18 @@ public class DemonstrateActivity extends ListActivity {
 	private ListView lv;
 	DemonstrateListAdapter adp;
     // Need handler for callbacks to the UI thread
-    final Handler mHandler = new Handler();
+    private final Handler mHandler = new Handler();
+    private final Handler dialogHandler = new Handler(){
+    	public void handleMessage(Message msg){
+    		if (msg.what == 1){ //Delete - knop
+    			repomananger.getEventRepository().remove(msg.arg1);
+    		}
+    		else if (msg.what == 2){ //Verplaats - knop
+    			//TODO: verplaats - ding
+    		}
+    		
+    	}
+    };
     // Create runnable for actually doing the work that is called in the handler 
     final Runnable mUpdateResults = new Runnable() {
         public void run() {
@@ -109,7 +120,10 @@ public class DemonstrateActivity extends ListActivity {
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long id) {
 				BaseBlock currobj = (BaseBlock)lv.getItemAtPosition(position);
-				Toast.makeText(getApplicationContext(), "Geklikt op item met naam " + currobj.getName(), Toast.LENGTH_SHORT).show();
+				BlockDetailsDialog diag = new BlockDetailsDialog(thisact, currobj, position);
+				diag.setReturnHandler(dialogHandler);
+				diag.getDialog().show();
+				//Toast.makeText(getApplicationContext(), "Geklikt op item met naam " + currobj.getName(), Toast.LENGTH_SHORT).show();
 			}
 		});
 	}
